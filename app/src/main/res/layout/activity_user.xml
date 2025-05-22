@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:padding="16dp">
+
+    <!-- Contenedor horizontal para imagen + textos -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:weightSum="1">
+
+
+
+        <LinearLayout
+            android:layout_width="66dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textLevel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:fontFamily="@font/baloo_bhai"
+                android:gravity="start"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="118dp"
+                android:layout_height="99dp"
+                android:layout_gravity="center"
+                android:src="@drawable/swifty_companion_logo"/>
+
+            <TextView
+                android:id="@+id/textWallet"
+                android:textAlignment="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/baloo_bhai"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/userLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="login"
+        app:fontFamily="@font/baloo_bhai"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userDisplayName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="displayname"
+        android:fontFamily="@font/baloo_bhai"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Dropdown for cursus -->
+    <Spinner
+        android:id="@+id/cursusDropdown"
+        android:layout_width="245dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/baloo_bhai" />
+
+    <!-- Tabs -->
+    <com.google.android.material.tabs.TabLayout
+        android:background="@color/app_background"
+        android:fontFamily="@font/baloo_bhai"
+        android:id="@+id/tabLayout"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Tab content -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

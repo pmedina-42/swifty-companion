@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/app_background"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="212dp"
+        android:layout_height="301dp"
+        android:src="@drawable/swifty_companion_logo" />
+
+    <EditText
+        android:id="@+id/inputLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo_bhai"
+        android:hint="Insert a 42 login"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/app_background"
+        android:fontFamily="@font/baloo_bhai"
+        android:text="Search" />
+</LinearLayout>
