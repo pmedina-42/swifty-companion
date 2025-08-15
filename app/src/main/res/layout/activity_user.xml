@@ -78,11 +78,21 @@
         android:gravity="center"
         android:layout_marginBottom="8dp" />
 
+    <TextView
+        android:id="@+id/userGrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="displayname"
+        android:fontFamily="@font/baloo_bhai"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
     <!-- Dropdown for cursus -->
     <Spinner
         android:id="@+id/cursusDropdown"
         android:layout_width="245dp"
-        android:layout_height="38dp"
+        android:layout_height="45dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/baloo_bhai" />

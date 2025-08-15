@@ -7,11 +7,14 @@ import android.os.Looper
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.content.res.ResourcesCompat
+import android.content.pm.ActivityInfo
+import com.gvnjv.swiftycompanion.activities.LoginActivity
 
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val createdBy = findViewById<TextView>(R.id.createdBy)
@@ -23,7 +26,7 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 2500)
     }
 
 }

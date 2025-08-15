@@ -1,4 +1,4 @@
-package com.gvnjv.swiftycompanion
+package com.gvnjv.swiftycompanion.activities.skills
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.RadarChart
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.gvnjv.swiftycompanion.R
 import com.gvnjv.swiftycompanion.model.SkillsResponse
 
 class SkillsFragment : Fragment() {

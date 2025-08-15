@@ -1,4 +1,4 @@
-package com.gvnjv.swiftycompanion
+package com.gvnjv.swiftycompanion.activities.skills
 
 import android.content.Context
 import android.util.TypedValue
@@ -8,6 +8,7 @@ import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
+import com.gvnjv.swiftycompanion.R
 
 class SkillMarkerView(
     context: Context,
@@ -41,14 +42,11 @@ class SkillMarkerView(
         var offsetX = -width / 2f
         val offsetY = -height.toFloat() - marginPx
 
-        // Posición final tentativa sumando posX + offsetX
         val finalX = posX + offsetX
 
-        // Ajusta offsetX para no salir por la izquierda
         if (finalX < marginPx) {
             offsetX = marginPx - posX
         }
-        // Ajusta offsetX para no salir por la derecha
         else if (finalX + width > chart.width - marginPx) {
             offsetX = chart.width - marginPx - posX - width
         }

@@ -1,6 +1,7 @@
-package com.gvnjv.swiftycompanion
+package com.gvnjv.swiftycompanion.activities
 
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -16,6 +17,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
+import com.gvnjv.swiftycompanion.R
+import com.gvnjv.swiftycompanion.activities.adapter.UserPagerAdapter
 import com.gvnjv.swiftycompanion.model.FullCursusInfo
 import com.gvnjv.swiftycompanion.model.FullUserInfo
 
@@ -26,12 +29,13 @@ class UserActivity : AppCompatActivity() {
     private lateinit var currentCursus: FullCursusInfo
     private lateinit var pagerAdapter: UserPagerAdapter
     private lateinit var dropdown: Spinner
+    val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
 
-        val gson = Gson()
         val userJson = intent.getStringExtra("userInfo")
         userInfo = gson.fromJson(userJson, FullUserInfo::class.java)
 
@@ -50,27 +54,29 @@ class UserActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
 
-        val sortedCursusList = userInfo.cursus.sortedBy { it.grade.lowercase()}
+        val sortedCursusList = userInfo.cursus.sortedBy { it.name.lowercase()}
 
-        val cursusNames = sortedCursusList.map { it.grade ?: "Unknown cursus" }
+        val cursusNames = sortedCursusList.map { it.name ?: "Unknown cursus" }
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cursusNames)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.spinner_item, cursusNames)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         dropdown.adapter = adapter
 
         currentCursus = sortedCursusList[0]
+        findViewById<TextView>(R.id.userGrade).text = currentCursus.grade
         var textLevel = findViewById<TextView>(R.id.textLevel)
         textLevel.text = String.format("Level " + currentCursus.level)
         pagerAdapter = UserPagerAdapter(this, currentCursus)
         viewPager.adapter = pagerAdapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = if (position == 0) "Proyectos" else "Skills"
+            tab.text = if (position == 0) "Projects" else "Skills"
         }.attach()
 
         dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 currentCursus = sortedCursusList[position]
+                findViewById<TextView>(R.id.userGrade).text = currentCursus.grade
                 pagerAdapter.updateCursus(currentCursus)
                 textLevel.text = String.format("Level " + currentCursus.level)
                 viewPager.adapter = pagerAdapter

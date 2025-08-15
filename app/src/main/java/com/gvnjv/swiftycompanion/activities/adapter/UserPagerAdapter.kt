@@ -1,8 +1,9 @@
-package com.gvnjv.swiftycompanion
+package com.gvnjv.swiftycompanion.activities.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.gvnjv.swiftycompanion.activities.skills.SkillsFragment
 import com.gvnjv.swiftycompanion.model.FullCursusInfo
 import com.gvnjv.swiftycompanion.ui.ProjectsFragment
 
