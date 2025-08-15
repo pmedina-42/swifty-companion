@@ -17,33 +17,48 @@ import com.gvnjv.swiftycompanion.service.ApiService
 import com.gvnjv.swiftycompanion.model.FullUserInfo
 import kotlinx.coroutines.launch
 
+/**
+ * LoginActivity:
+ * - Allows the user to search for a 42 user by login name.
+ * - Requests an API access token on startup.
+ * - Once the token is ready, enables the search button.
+ * - Fetches user info via ApiService and navigates to UserActivity if valid data is found.
+ */
 class LoginActivity : ComponentActivity() {
 
+    /** Gson instance for JSON serialization/deserialization */
     private val gson = Gson()
+
+    /** API service for making network requests */
     private lateinit var api: ApiService
+
+    /** Cached API access token */
     private var accessToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Force portrait orientation
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // Initialize ApiService with client credentials
         api = ApiService(
             gson = gson,
             clientId = BuildConfig.client_uid,
             clientSecret = BuildConfig.client_secret
         )
 
+        // UI setup
         val inputText = findViewById<EditText>(R.id.inputLogin)
         var typeface = ResourcesCompat.getFont(this, R.font.baloo_bhai)
         inputText.typeface = typeface
 
         val submitButton = findViewById<Button>(R.id.submitButton).apply {
-            isEnabled = false
+            isEnabled = false // Disabled until token is fetched
             typeface = typeface
         }
 
-        // Fetch token
+        // Request access token when activity starts
         lifecycleScope.launch {
             api.requestAccessToken()
                 .onSuccess { token ->
@@ -56,11 +71,14 @@ class LoginActivity : ComponentActivity() {
                 }
         }
 
+        // Handle search button click
         submitButton.setOnClickListener {
             val login = inputText.text.toString().trim()
             val token = accessToken
             if (token.isNullOrEmpty()) return@setOnClickListener
+
             submitButton.isEnabled = false
+
             lifecycleScope.launch {
                 api.getUserInfo(login, token)
                     .onSuccess { userInfo ->
@@ -68,7 +86,10 @@ class LoginActivity : ComponentActivity() {
                     }
                     .onFailure { e ->
                         Log.e("LoginActivity", "User request failed", e)
-                        showInfoDialog("🤔", "No user was found with that login. Are you sure it's a valid one?")
+                        showInfoDialog(
+                            "🤔",
+                            "No user was found with that login. Are you sure it's a valid one?"
+                        )
                     }
 
                 submitButton.isEnabled = true
@@ -76,12 +97,19 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Handles what to do when user info is retrieved.
+     * Navigates to UserActivity if valid cursus data is present,
+     * otherwise shows an informational dialog.
+     */
     private fun handleUserInfo(userInfo: FullUserInfo?) {
         if (userInfo == null) {
             showInfoDialog("🤔", "No user was found with that login. Are you sure it's a valid one?")
             return
         }
+
         if (userInfo.cursus.size >= 1) {
+            // Pass user data to UserActivity
             val intent = Intent(this@LoginActivity, UserActivity::class.java)
             val userJson = gson.toJson(userInfo)
             intent.putExtra("userInfo", userJson)
@@ -94,6 +122,9 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Shows a simple OK dialog with a title and message.
+     */
     private fun showInfoDialog(title: String, message: String) {
         AlertDialog.Builder(this)
             .setTitle(title)
@@ -102,11 +133,17 @@ class LoginActivity : ComponentActivity() {
             .show()
     }
 
+    /**
+     * Shows an error dialog when the token cannot be retrieved,
+     * and closes the app when the user presses OK.
+     */
     private fun showBlockingErrorAndClose() {
         AlertDialog.Builder(this)
             .setTitle("💥")
-            .setMessage("The 42 API access token couldn't be retrieved with the secrets used. " +
-                    "Make sure you're using the latest ones. The app will close so you can check it")
+            .setMessage(
+                "The 42 API access token couldn't be retrieved with the secrets used. " +
+                        "Make sure you're using the latest ones. The app will close so you can check it"
+            )
             .setPositiveButton("OK") { _, _ -> finishAffinity() }
             .setCancelable(false)
             .show()
