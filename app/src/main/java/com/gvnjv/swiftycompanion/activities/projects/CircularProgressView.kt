@@ -27,6 +27,7 @@ class CircularProgressView @JvmOverloads constructor(
 
     /** Paint for the base circle */
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.LTGRAY
         style = Paint.Style.STROKE
         strokeWidth = 6f
     }
@@ -43,7 +44,6 @@ class CircularProgressView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeWidth = 6f
         strokeCap = Paint.Cap.ROUND
-        color = Color.GREEN
     }
 
     /** Paint for the center text displaying progress value */
@@ -56,8 +56,20 @@ class CircularProgressView @JvmOverloads constructor(
 
     /** Reusable rect defining arc bounds */
     private val rectF = RectF()
-    /** Padding from the edge (in pixels) */
+
+    /** Circle values */
+    private var radius = 0f
+    private var centerX = 0f
+    private var centerY = 0f
     private val padding = 12f * resources.displayMetrics.density
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        val size = min(w.toFloat(), h.toFloat())
+        centerX = w / 2f
+        centerY = h / 2f
+        radius = (size / 2f) - padding
+        rectF.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius)
+    }
 
     /**
      * Draws the circular progress indicator.
@@ -65,13 +77,7 @@ class CircularProgressView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val size = min(width.toFloat(), height.toFloat())
-        val centerX = width / 2f
-        val centerY = height / 2f
-        val radius = (size / 2f) - padding
-
         // Base circle (light gray background)
-        circlePaint.color = Color.LTGRAY
         canvas.drawCircle(centerX, centerY, radius, circlePaint)
 
         // Bonus circle when progress exceeds maxProgress

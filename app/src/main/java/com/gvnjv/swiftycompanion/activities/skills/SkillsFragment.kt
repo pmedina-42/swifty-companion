@@ -65,7 +65,7 @@ class SkillsFragment : Fragment() {
             color = Color.BLUE
             fillColor = Color.parseColor("#80C8FF") // Light blue fill
             setDrawFilled(true)
-            setDrawHighlightCircleEnabled(true)
+            isDrawHighlightCircleEnabled = true
             setDrawHighlightIndicators(false)
             lineWidth = 2f
             valueTextSize = 0f // Hide value labels
@@ -90,7 +90,7 @@ class SkillsFragment : Fragment() {
             // Configure Y-axis (skill levels)
             yAxis.apply {
                 axisMinimum = 0f
-                axisMaximum = 21f // Max level range
+                axisMaximum = 26f // Max level range
                 setDrawLabels(false)
             }
 
