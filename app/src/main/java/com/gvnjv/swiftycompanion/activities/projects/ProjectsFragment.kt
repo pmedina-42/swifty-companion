@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gvnjv.swiftycompanion.R
+import com.gvnjv.swiftycompanion.activities.projects.CircularProgressView
 import com.gvnjv.swiftycompanion.model.ProjectListResponse
 
 /**

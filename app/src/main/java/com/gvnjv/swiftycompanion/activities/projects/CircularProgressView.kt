@@ -1,4 +1,4 @@
-package com.gvnjv.swiftycompanion.ui
+package com.gvnjv.swiftycompanion.activities.projects
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -29,7 +29,6 @@ class CircularProgressView @JvmOverloads constructor(
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 6f
-        color = Color.GREEN // Default, overridden in onDraw
     }
 
     /** Paint for the bonus circle (when progress > 100%) */
